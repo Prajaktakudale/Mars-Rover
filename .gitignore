@@ -1,3 +1,6 @@
-.iml
-.class
-.xml
+*~
+.idea
+*.iml
+*.ipr
+*.class
+*.tmp
