@@ -1,7 +1,7 @@
-public class Grid {
+public class PlateauGrid {
     int width,height;
 
-    public Grid(int width,int height) {
+    public PlateauGrid(int width,int height) {
         this.width = width;
         this.height = height;
     }

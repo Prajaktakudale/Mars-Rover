@@ -1,27 +1,36 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MarsRover {
-    RoversPosition roversPosition;
+    
+    IPosition roversPosition;
+    List<ICommand> _commands;
 
-    public MarsRover(RoversPosition roversPosition) {
-        this.roversPosition = roversPosition;
+    public MarsRover(IPosition currentPosition) {
+        _commands = new ArrayList<ICommand>();
+        roversPosition = currentPosition;
     }
 
-    public void turnLeft() {
-        roversPosition.turnLeft();
+    public void SetCommands(String inputCommand) {
+        Map<String, ICommand> commandMapper = new HashMap<String, ICommand>();
+        commandMapper.put("L",new TurnLeft());
+        commandMapper.put("R",new TurnRight());
+        commandMapper.put("M",new MoveForward());
+        String[] commands = inputCommand.split("");
+        for (String command : commands) {
+            _commands.add(commandMapper.get(command));
+        }
     }
 
-    public void turnRight() {
-        roversPosition.turnRight();
+    public void moveRover() throws Exception {
+        for (ICommand command : _commands) {
+            roversPosition = command.execute(roversPosition);
+        }
     }
 
-    public void move() {
-       roversPosition.move();
-    }
-
-    public int getX() {
-        return roversPosition.point.getX();
-    }
-
-    public int getY() {
-        return roversPosition.point.getY();
+    public String GetPosition() {
+        return roversPosition.GetCurrentPosition();
     }
 }
